@@ -84,6 +84,7 @@ def apache_setting():
 
     return snippet
 
+
 def create_database():
     """distributes an archive to the web servers"""
     try:
@@ -93,7 +94,7 @@ def create_database():
         put('/tmp/db_command.sql', '/tmp/db_command.sql')
 
         #Execute command to create the db
-        db_root_password = sudo('cat ~/bitnami_application_password')
+        db_root_password = sudo('cat /home/bitnami/bitnami_application_password')
         sudo('mysql --batch -u root -p{} < /tmp/db_command.sql'.format(db_root_password), pty=True)
         
         # Clean up temporary files
