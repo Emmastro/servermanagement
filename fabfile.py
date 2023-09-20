@@ -10,10 +10,14 @@ import os
 import random
 import string
 
+# import paramiko.util as ssh_util  # Import paramiko.util for logging
+
+# ssh_util.log_to_file("paramiko.log", 10)  # Paramiko logging level
 load_dotenv()
 
 env.hosts = os.getenv('SERVER_IP').split() # IP addresses are separated by space
-env.key_filename = os.getenv('PRIVATE_KEY_PATH')
+print(os.getenv('SERVER_IP').split())
+# env.key_filename = os.getenv('PRIVATE_KEY_PATH')
 env.user = os.getenv('USER')
 apps = os.getenv('APPS_PATH')
 
@@ -51,8 +55,9 @@ def download_wordpress():
 
         # Add line define('FS_METHOD','direct'); on wp-config.php file
         return True
-    except:
-        return None
+    except Exception as e:
+
+        raise Exception("Error downloading wordpress", e)
 
 
 def mysql_command():
